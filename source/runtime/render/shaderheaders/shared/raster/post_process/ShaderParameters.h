@@ -154,10 +154,26 @@ struct SsrPipelineBindlessParam {
 // 2. 该struct是C++端和Shader端(HLSL)共享的，所以我们只需要定义一次，就可以在两个语言中共享。
 // 3. 该struct通过PushConstants传入Shader，适合存储每帧变化的数据
 struct DofPipelineBindlessParam {
-    uint input_color_tex;
-    // ==============================
-    // TODO(lab2-dof): Shader参数，从 Renderer (DofPass.h) 中获取传入数据，在 Shader (Dof.hlsl) 中使用
-    // ==============================
+    float2 resolution;
+    // 分 辨 率
+    float2 resolution_inv;
+    // 分 辨 率 倒 数
+    uint input_color_tex; // 输 入 颜 色 纹 理 handle
+    uint depth_tex;
+    // 深 度 纹 理 handle （预 留）
+    float debug_param;
+    // 调 试 参 数
+    float near_clip;
+    // 摄 像 机 近 裁 剪 面 （预 留）
+    float far_clip;
+    // 摄 像 机 远 裁 剪 面 （预 留）
+    float dof_intensity;
+    // DOF 强 度 （预 留）
+    float focus_plane_distance;
+    // 焦 平 面 距 离 （预 留）
+    float focus_plane_range;
+    // 焦 平 面 范 围 （预 留）
+    uint b_visualize_focus_plan; // 可 视 化 焦 平 面 （预 留）
 };
 
 struct SmaaSharedPipelineBindlessParam {

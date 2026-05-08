@@ -460,10 +460,14 @@ void RasterUI::ShowConfig() {
 
     // MARK: Dof
     if (ImGui::TreeNode("Dof (Depth of Field)")) {
-
-        // ==============================
-        // TODO(lab2-dof): 实现UI，通过IMGUI组件修改RasterConfig (m_config) 中的相关变量
-        // ==============================
+        ImGui::SliderFloat("Debug Param", &m_config.dof_debug_param, 0.0f, 1.0f);
+        ImGui::SliderFloat("Intensity", &m_config.dof_intensity, 0.0f, 3.0f);
+        ImGui::SliderFloat("Focus Plane Distance", &m_config.focus_plane_distance, 0.0f, 20.0f);
+        ImGui::SliderFloat("Focus Plane Range", &m_config.focus_plane_range, 0.0f, 5.0f);
+        bool visualize_focus_plane = m_config.b_visualize_focus_plan != 0;
+        if (ImGui::Checkbox("Visualize Focus Plane", &visualize_focus_plane)) {
+            m_config.b_visualize_focus_plan = visualize_focus_plane ? 1u : 0u;
+        }
 
         ImGui::TreePop();
     }

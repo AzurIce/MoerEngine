@@ -26,28 +26,35 @@ public:
             {},
             {RHIColorAttachmentInfo::Preset(context.textures.dof_output.tex->GetFormat())}
         );
-
         m_dof_pipeline = context.manager.Raster()
                              .Vertex("core/utils/FullScreenQuad.hlsl")
                              .Pixel("pipelines/postprocess/color/Dof.hlsl")
                              .Build<DofPipeline>(std::move(pso_full_screen_info));
     }
-
     TextureWithHandle Process(
         RasterContext&      context,
         const RasterConfig& ui_config,
         const Camera&       camera,
         TextureWithHandle   input_image
     ) {
-
-        DofPipelineBindlessParam param{};
-
+        DofPipelineBindlessParam param;
+        float2                   resolution = float2(input_image.GetSize());
+        param.resolution                    = resolution;
+        // 分 辨 率
+        param.resolution_inv  = float2(1.f / resolution.x, 1.f / resolution.y); // 分 辨 率 倒 数
         param.input_color_tex = input_image.hdl;
+        // 输 入 颜 色 纹 理
+        param.debug_param = ui_config.dof_debug_param;
 
-        // ==============================
-        // TODO(lab2-dof): 从 RasterConfig (ui_config)、Camera 中获取相关配置项，并传入 DofPipelineBindlessParam param
-        // ==============================
+        param.near_clip            = camera.GetNearClip(); // 摄 像 机 近 裁 剪 面 【新 增 代 码】
+        param.far_clip             = camera.GetFarClip();  // 摄 像 机 远 裁 【新 增 代 码】
+        param.depth_tex            = context.textures.depth_linear_sampler.hdl; // 深 度 纹 理 【新 增 代 码】
+        param.dof_intensity        = ui_config.dof_intensity;                   // DOF 强 度 【新 增 代 码】
+        param.focus_plane_distance = ui_config.focus_plane_distance;     // 焦 平 面 距 离 【新 增 代 码】
+        param.focus_plane_range    = ui_config.focus_plane_range;        // 焦 平 面 范 围 【新 增 代 码】
+        param.b_visualize_focus_plan = ui_config.b_visualize_focus_plan; // 可 视 化 焦 平 面 【新 增 代 码】
 
+        // 调 试 参 数
         context.cmd_list.Gfx(m_dof_pipeline, context.bdls, param)
             .Draw(
                 "Dof Pass",
@@ -55,12 +62,10 @@ public:
                 std::move(RasterTool::GetFullScreenDrawDatas()),
                 ColorAttachment(context.textures.dof_output.tex)
             );
-
         return context.textures.dof_output;
     }
 
 private:
     DofPipeline m_dof_pipeline;
 };
-
 } // namespace Moer::Render::Raster

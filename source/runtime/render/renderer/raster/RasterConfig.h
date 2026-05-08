@@ -239,9 +239,12 @@ struct RasterConfig {
     CooperativeOpsStatus cooperative_ops_status{};
 
     // MARK: Dof
-    // ==============================
-    // TODO(lab2-dof): 实现景深相关的配置项，从 UI (RasterUI.cpp) 获取输入，将结果传递给 Renderer (DofPass.h)
-    // ==============================
+    // MARK: Dof
+    float dof_debug_param        = 0.5f; // 【新 增 代 码】
+    float dof_intensity          = 1.0f; // DOF 强 度 【新 增 代 码】
+    float focus_plane_distance   = 5.0f; // 焦 平 面 距 离 【新 增 代 码】
+    float focus_plane_range      = 1.0f; // 焦 平 面 范 围 【新 增 代 码】
+    uint  b_visualize_focus_plan = 0;    // 可 视 化 焦 平 面 【新 增 代 码】
 
     // MARK: Denoiser
     EDenoiserMode denoiser_mode                     = EDenoiserMode::NONE;
