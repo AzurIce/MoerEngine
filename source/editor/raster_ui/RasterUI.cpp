@@ -460,13 +460,25 @@ void RasterUI::ShowConfig() {
 
     // MARK: Dof
     if (ImGui::TreeNode("Dof (Depth of Field)")) {
-        ImGui::SliderFloat("Debug Param", &m_config.dof_debug_param, 0.0f, 1.0f);
         ImGui::SliderFloat("Intensity", &m_config.dof_intensity, 0.0f, 3.0f);
         ImGui::SliderFloat("Focus Plane Distance", &m_config.focus_plane_distance, 0.0f, 20.0f);
         ImGui::SliderFloat("Focus Plane Range", &m_config.focus_plane_range, 0.0f, 5.0f);
+
         bool visualize_focus_plane = m_config.b_visualize_focus_plan != 0;
         if (ImGui::Checkbox("Visualize Focus Plane", &visualize_focus_plane)) {
             m_config.b_visualize_focus_plan = visualize_focus_plane ? 1u : 0u;
+        }
+        bool visualize_blur_radius = m_config.b_visualize_blur_radius != 0;
+        if (ImGui::Checkbox("Visualize Blur Radius", &visualize_blur_radius)) {
+            m_config.b_visualize_blur_radius = visualize_blur_radius ? 1u : 0u;
+        }
+        bool separate_fg_bg = m_config.b_separate_fg_bg != 0;
+        if (ImGui::Checkbox("Separate Foreground/Background", &separate_fg_bg)) {
+            m_config.b_separate_fg_bg = separate_fg_bg ? 1u : 0u;
+        }
+        bool disk_sampling = m_config.b_disk_sampling != 0;
+        if (ImGui::Checkbox("Disk Sampling", &disk_sampling)) {
+            m_config.b_disk_sampling = disk_sampling ? 1u : 0u;
         }
 
         ImGui::TreePop();

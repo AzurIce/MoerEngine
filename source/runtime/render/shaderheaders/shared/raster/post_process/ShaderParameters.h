@@ -173,7 +173,10 @@ struct DofPipelineBindlessParam {
     // 焦 平 面 距 离 （预 留）
     float focus_plane_range;
     // 焦 平 面 范 围 （预 留）
-    uint b_visualize_focus_plan; // 可 视 化 焦 平 面 （预 留）
+    uint b_visualize_focus_plan;   // 可 视 化 焦 平 面
+    uint b_visualize_blur_radius;  // 可 视 化 模 糊 半 径
+    uint b_separate_fg_bg;         // 前 后 景 分 离
+    uint b_disk_sampling;          // 圆 盘 采 样
 };
 
 struct SmaaSharedPipelineBindlessParam {

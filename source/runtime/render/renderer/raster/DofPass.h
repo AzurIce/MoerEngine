@@ -52,9 +52,12 @@ public:
         param.dof_intensity        = ui_config.dof_intensity;                   // DOF 强 度 【新 增 代 码】
         param.focus_plane_distance = ui_config.focus_plane_distance;     // 焦 平 面 距 离 【新 增 代 码】
         param.focus_plane_range    = ui_config.focus_plane_range;        // 焦 平 面 范 围 【新 增 代 码】
-        param.b_visualize_focus_plan = ui_config.b_visualize_focus_plan; // 可 视 化 焦 平 面 【新 增 代 码】
+        param.b_visualize_focus_plan  = ui_config.b_visualize_focus_plan;
+        param.b_visualize_blur_radius = ui_config.b_visualize_blur_radius;
+        param.b_separate_fg_bg        = ui_config.b_separate_fg_bg;
+        param.b_disk_sampling         = ui_config.b_disk_sampling;
 
-        // 调 试 参 数
+
         context.cmd_list.Gfx(m_dof_pipeline, context.bdls, param)
             .Draw(
                 "Dof Pass",
