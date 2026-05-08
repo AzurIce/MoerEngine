@@ -245,6 +245,7 @@ struct RasterConfig {
     float focus_plane_distance   = 5.0f; // 焦 平 面 距 离 【新 增 代 码】
     float focus_plane_range      = 1.0f; // 焦 平 面 范 围 【新 增 代 码】
     uint  b_visualize_focus_plan = 0;    // 可 视 化 焦 平 面 【新 增 代 码】
+    uint  b_visualize_blur_radius = 0;   // 可 视 化 模 糊 半 径
 
     // MARK: Denoiser
     EDenoiserMode denoiser_mode                     = EDenoiserMode::NONE;
