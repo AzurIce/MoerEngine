@@ -468,6 +468,10 @@ void RasterUI::ShowConfig() {
         if (ImGui::Checkbox("Visualize Focus Plane", &visualize_focus_plane)) {
             m_config.b_visualize_focus_plan = visualize_focus_plane ? 1u : 0u;
         }
+        bool visualize_blur_radius = m_config.b_visualize_blur_radius != 0;
+        if (ImGui::Checkbox("Visualize Blur Radius", &visualize_blur_radius)) {
+            m_config.b_visualize_blur_radius = visualize_blur_radius ? 1u : 0u;
+        }
 
         ImGui::TreePop();
     }
